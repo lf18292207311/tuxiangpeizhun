@@ -1,0 +1,22 @@
+ImageA=imread('Image A.jpg'); 
+ImageB=imread('Image B.jpg'); 
+figure; 
+subplot(1,2,1);
+imshow(ImageA); 
+subplot(1,2,2);
+imshow(ImageB);
+cpselect(ImageA,ImageB);
+tform=cp2tform(APoints,BPoints,'affine'); 
+Aout=imtransform(ImageA,tform); 
+figure 
+subplot(1,2,1),imshow(Aout); 
+title('Åä×¼ºóµÄÍ¼Ïñ');
+subplot(1,2,2),imshow(ImageB);
+title('BÍ¼Ïñ');
+A=APoints';
+B=BPoints';
+for i=1:size(A)
+    A(3,i)=1;
+    B(3,i)=1;
+end
+H=B*A'*(A*A')^-1;
